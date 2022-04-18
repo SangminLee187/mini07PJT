@@ -42,7 +42,11 @@ function fncGetList(currentPage) {
 
 <div style="width:98%; margin-left:10px;">
 
+<<<<<<< HEAD
 <form name="detailForm" action="/listProduct?menu=${param.menu}" method="post">
+=======
+<form name="detailForm" action="/product/listProduct?menu=${param.menu}" method="post">
+>>>>>>> branch 'master' of https://github.com/SangminLee187/mini07PJT.git
 
 <input type="hidden" name="prodNo" value="${product.prodNo}"/>
 
