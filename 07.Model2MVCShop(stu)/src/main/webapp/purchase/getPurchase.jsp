@@ -1,10 +1,11 @@
 <%@ page contentType="text/html; charset=euc-kr" %>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%--
-///////////////////////EL - JSTL 적용으로 주석처리///////////////////////
-Product vo = (Product)request.getAttribute("vo"); 
+<%@ page import="com.model2.mvc.service.domain.Purchase"
+<% 
+Purchase purc = (Purchase)request.getAttribute("purc");
+%>
 --%>
 
 <html>
@@ -12,15 +13,12 @@ Product vo = (Product)request.getAttribute("vo");
 
 <link rel="stylesheet" href="/css/admin.css" type="text/css">
 
-<title>상품상세조회</title>
+<title>구매상세조회</title>
 </head>
 
 <body bgcolor="#ffffff" text="#000000">
 
 <form name="detailForm" method="post">
-
-<input type="hidden" name="prodNo" value="${product.prodNo}"/>
-
 
 <table width="100%" height="37" border="0" cellpadding="0"	cellspacing="0">
 	<tr>
@@ -28,7 +26,7 @@ Product vo = (Product)request.getAttribute("vo");
 		<td background="/images/ct_ttl_img02.gif" width="100%" style="padding-left: 10px;">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="93%" class="ct_ttl01">상품상세조회</td>
+					<td width="93%" class="ct_ttl01">구매상세조회</td>
 					<td width="20%" align="right">&nbsp;</td>
 				</tr>
 			</table>
@@ -43,16 +41,16 @@ Product vo = (Product)request.getAttribute("vo");
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
+
 	<tr>
 		<td width="104" class="ct_write">
-			상품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+			물품번호 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
 		<td class="ct_write01">
 			<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				<tr>
-					<td width="105">${product.prodNo} </td>
-					
+					<td width="105">${purc.purchaseProd.prodNo}</td>
 				</tr>
 			</table>
 		</td>
@@ -60,59 +58,90 @@ Product vo = (Product)request.getAttribute("vo");
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
+
 	<tr>
 		<td width="104" class="ct_write">
-			상품명 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+			구매자아이디 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.prodName}</td>
-		
+		<td class="ct_write01">${purc.buyer.userId}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
+
 	<tr>
 		<td width="104" class="ct_write">
-			상품이미지 <img 	src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+			구매방법 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">
-			<img src = "/images/uploadFiles/../../images/empty.GIF"/>	//추후 수정
-		</td>
+		<td class="ct_write01">${purc.paymentOption}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
+
 	<tr>
 		<td width="104" class="ct_write">
-			상품상세정보 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+			구매자이름 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
 		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.prodDetail}</td>
+		<td class="ct_write01">${purc.receiverName}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
+
 	<tr>
-		<td width="104" class="ct_write">제조일자</td>
+		<td width="104" class="ct_write">
+			구매자연락처 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.manuDate}</td>
+		<td class="ct_write01">${purc.receiverPhone}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
+	
 	<tr>
-		<td width="104" class="ct_write">가격</td>
+		<td width="104" class="ct_write">
+			구매자주소 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.price}</td>
+		<td class="ct_write01">${purc.divyAddr}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
 	</tr>
+	
 	<tr>
-		<td width="104" class="ct_write">등록일자</td>
+		<td width="104" class="ct_write">
+			구매요청사항 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
 		<td bgcolor="D6D6D6" width="1"></td>
-		<td class="ct_write01">${product.regDate}</td>
+		<td class="ct_write01">${purc.divyRequest}</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	
+	<tr>
+		<td width="104" class="ct_write">
+			배송희망일 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">${purc.divyDate}</td>
+	</tr>
+	<tr>
+		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
+	</tr>
+	
+	<tr>
+		<td width="104" class="ct_write">
+			주문일 <img src="/images/ct_icon_red.gif" width="3" height="3" align="absmiddle"/>
+		</td>
+		<td bgcolor="D6D6D6" width="1"></td>
+		<td class="ct_write01">${purc.orderDate}</td>
 	</tr>
 	<tr>
 		<td height="1" colspan="3" bgcolor="D6D6D6"></td>
@@ -131,7 +160,7 @@ Product vo = (Product)request.getAttribute("vo");
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-					<a href="/purchase/addPurchaseView?prod_no=${product.prodNo}">구매</a>
+					<a href="/updatePurchaseView.do?tranNo=${purc.tranNo}">수정</a>
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23">
@@ -142,7 +171,7 @@ Product vo = (Product)request.getAttribute("vo");
 					<img src="/images/ct_btnbg01.gif" width="17" height="23"/>
 				</td>
 				<td background="/images/ct_btnbg02.gif" class="ct_btn01" style="padding-top: 3px;">
-					<a href="javascript:history.go(-1)">이전</a>
+					<a href="javascript:history.go(-1)">확인</a>
 				</td>
 				<td width="14" height="23">
 					<img src="/images/ct_btnbg03.gif" width="14" height="23">
