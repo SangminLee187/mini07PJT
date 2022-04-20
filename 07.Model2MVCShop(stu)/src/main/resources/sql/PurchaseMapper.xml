@@ -16,14 +16,14 @@
 		<result property="divyRequest"				column="DIVY_REQUEST"				jdbcType="VARCHAR"/>
 		<result property="tranCode"				column="TRAN_STATUS_CODE"				jdbcType="CHAR"/>
 		<result property="orderDate"				column="ORDER_DATE"				jdbcType="DATE"/>
-		<result property="divyDate"				column="DIVY_DATE	"				jdbcType="DATE"/>
+		<result property="divyDate"				column="DIVY_DATE"				jdbcType="DATE"/>
 		
 		<association property="purchaseProd"		javaType="product">
-			<id		 property="prodNo" 				column="prod_no" 				jdbcType="NUMERIC"/>
+			<id		 property="prodNo" 				column="prod_no" 				jdbcType="INTEGER"/>
 			<result property="prodName"				column="prod_name"				jdbcType="VARCHAR"/>
 			<result property="prodDetail"			column="prod_detail"			jdbcType="VARCHAR"/>
 			<result property="manuDate"				column="manufacture_day"		jdbcType="VARCHAR"/>
-			<result property="price"				column="price"					jdbcType="NUMERIC"/>
+			<result property="price"				column="price"					jdbcType="INTEGER"/>
 			<result property="fileName"				column="image_file"				jdbcType="VARCHAR"/>
 			<result property="regDate"				column="reg_date"				jdbcType="DATE"/>
 			<result property="proTranCode"			column="pro_tran_code"			jdbcType="VARCHAR"/>			
@@ -44,12 +44,11 @@
 	
 	<!-- SQL : INSERT -->
 	<insert 	id="addPurchase"		parameterType="purchase" >
-	 	
 	 	INSERT
-		INTO transaction  
-		VALUES	 ( #{purchaseProd.prodNo},#{buyer.userId},#{paymentOption},#{receiverName},
-					#{receiverPhone},#{divyAddr},#{divyRequest},#{tranCode},
-					#{orderDate}, #{orderDate},#{divyDate} )
+		INTO transaction (TRAN_NO, prod_no, buyer_id, PAYMENT_OPTION, RECEIVER_NAME, RECEIVER_PHONE, 
+							DIVY_ADDR, DIVY_REQUEST, TRAN_STATUS_CODE, ORDER_DATE, DIVY_DATE)
+		VALUES	 (seq_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo}, #{buyer.userId}, #{paymentOption},
+					#{receiverName}, #{receiverPhone}, #{divyAddr}, #{divyRequest}, 111, SYSDATE, #{divyDate})
 	 </insert>
 
 	 

@@ -1,5 +1,6 @@
 package com.model2.mvc.web.purchase;
 
+import java.lang.annotation.Repeatable;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,8 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
+import com.model2.mvc.service.domain.Product;
 import com.model2.mvc.service.domain.Purchase;
+import com.model2.mvc.service.domain.User;
+import com.model2.mvc.service.product.ProductService;
 import com.model2.mvc.service.purchase.PurchaseService;
+import com.model2.mvc.service.user.UserService;
 
 //==> 회원관리 Controller
 @Controller
@@ -29,6 +34,15 @@ public class PurchaseController {
 	@Autowired
 	@Qualifier("purchaseServiceImpl")
 	private PurchaseService purchaseService;
+	
+	@Autowired
+	@Qualifier("userServiceImpl")
+	private UserService userService;
+	
+	@Autowired
+	@Qualifier("productServiceImpl")
+	private ProductService productService;
+	
 	//setter Method 구현 않음
 		
 	public PurchaseController(){
@@ -43,14 +57,23 @@ public class PurchaseController {
 	//@Value("#{commonProperties['pageSize'] ?: 2}")
 	int pageSize;
 	
-	@RequestMapping("/addPurchase")
-//	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
-	public String addPurchase(@ModelAttribute("purchase")Purchase purchase) throws Exception{
+	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
+	public String addPurchase(@ModelAttribute("purchase")Purchase purchase, Model model) throws Exception{
 		System.out.println("/addPurchase : POST");
 		
 		purchaseService.addPurchase(purchase);
-		
+				
 		return "forward:/purchase/addPurchase.jsp"; 
+	}
+	
+	@RequestMapping(value="addPurchase", method=RequestMethod.GET)	//View
+	public String addPurchase(@RequestParam("prodNo") int prodNo, Model model) throws Exception{
+		System.out.println("/addPurchase : GET");
+
+		Product product = productService.getProduct(prodNo);
+		model.addAttribute("product", product);
+
+		return "forward:/purchase/addPurchaseView.jsp"; 
 	}
 	
 //	@RequestMapping("/getProduct")

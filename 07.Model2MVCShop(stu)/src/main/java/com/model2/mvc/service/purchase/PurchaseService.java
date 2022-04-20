@@ -9,8 +9,6 @@ public interface PurchaseService {
 
 	public Purchase addPurchase(Purchase purchaseVO) throws Exception;
 	
-	public Purchase addPurchaseView(Purchase purchase) throws Exception; //추후수정
-	
 	public Purchase getPurchase(int purchaseNo) throws Exception;
 	
 	public Map<String,Object> getPurchaseList(Search search,String userId) throws Exception;

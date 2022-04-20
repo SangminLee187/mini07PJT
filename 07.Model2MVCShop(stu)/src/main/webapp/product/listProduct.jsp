@@ -193,7 +193,6 @@ function fncGetList(currentPage) {
 			<c:if test= "${product.proTranCode == '333'}"> 배송완료 
 			</c:if>
 						 	
-			
 		</tr>
 		<tr>
 		<td colspan="11" bgcolor="D6D7D6" height="1"></td>
