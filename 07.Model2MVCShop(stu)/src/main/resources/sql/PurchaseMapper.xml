@@ -50,6 +50,34 @@
 		VALUES	 (seq_transaction_tran_no.NEXTVAL, #{purchaseProd.prodNo}, #{buyer.userId}, #{paymentOption},
 					#{receiverName}, #{receiverPhone}, #{divyAddr}, #{divyRequest}, 111, SYSDATE, #{divyDate})
 	 </insert>
-
+	 
+	 <select 	id="getPurchase"	parameterType="int"	resultMap="purchaseSelectMap">
+		SELECT
+		*
+		FROM
+		transaction
+		WHERE tran_no = #{value}
+	 </select>
+	 
+	 <select  id="PurchaseList"  parameterType="map"  resultMap="purchaseSelectMap">
+		SELECT *
+			FROM(	SELECT inner_table.*, ROWNUM AS row_seq
+				FROM(
+				<choose>
+					<when test= "userId == 'admin">
+					SELECT
+					tran_no, prod_no, buyer_id, receiver_name, receiver_phone, tran_status_code
+					FROM
+					transaction
+					</when>
+					<otherwise>
+					SELECT tran_no, prod_no, buyer_id, receiver_name, receiver_phone, tran_status_code
+					FROM transaction			
+					</otherwise>
+				</choose>
+				WHERE buyer_id= #{userId} ) inner_table
+			WHEREROWNUM &lt;= #{endRowNum} )
+		WHERE row_seq BETWEEN #{startRowNum} AND #{endRowNum} 	 
+	 </select>
 	 
 </mapper>

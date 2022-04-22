@@ -76,53 +76,44 @@ public class PurchaseController {
 		return "forward:/purchase/addPurchaseView.jsp"; 
 	}
 	
-//	@RequestMapping("/getProduct")
-//	public String getProduct(@RequestParam("prodNo")int prodNo, Model model,
-//							@RequestParam("menu")String menu) throws Exception{
-//		
-//		System.out.println("/getProduct");
-//		
-//		Product product = productService.getProduct(prodNo);
-//		
-//		model.addAttribute("product", product);
-//		
-//System.out.println("menu : "+menu);			//menu°ª È®ÀÎ
-//
-//			if(menu==null || menu.equals("")) {
-//				menu = "other";
-//				return "forward:/product/readProduct.jsp";	
-//			}
-//			
-//			if(menu.equals("manage")) {
-//				return "forward:/product/updateProduct.jsp";
-//			}
-//		model.addAttribute("menu", menu);
-//		model.addAttribute("prodNo", prodNo);
-//
-//		return "forward:/product/getProduct.jsp?menu="+menu;	
-//	}
-//	
-//	@RequestMapping("/listProduct")
-//	public String listProduct(@ModelAttribute("search")Search search, Model model) throws Exception{
-//		
-//		System.out.println("/listProduct");
-//		
-//		if(search.getCurrentPage()==0) {
-//			search.setCurrentPage(1);
-//		}
-//		search.setPageSize(pageSize);
-//		
-//		Map<String, Object> map = productService.getProductList(search);
-//		
-//		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
-//		System.out.println(resultPage);
-//		
-//		model.addAttribute("list", map.get("list"));
-//		model.addAttribute("resultPage", resultPage);
-//		model.addAttribute("search", search);		
-//		
-//		return "forward:/product/listProduct.jsp";
-//	}
+	@RequestMapping("/getPurchase")
+	public String getPurchase(@RequestParam("tranNo")int tranNo, Model model) throws Exception{
+		
+		System.out.println("/getPurchase");
+		
+		Purchase purchase = purchaseService.getPurchase(tranNo);
+		
+		model.addAttribute("pruchase", purchase);
+		
+		model.addAttribute("tranNo", tranNo);
+
+		return "forward:/purchase/getPurchase.jsp";	
+	}
+	
+	@RequestMapping("/listPurchase")
+	public String listPurchase(@ModelAttribute("search")Search search, 
+								HttpSession session , Model model) throws Exception{
+		
+		String sessionId=((User)session.getAttribute("user")).getUserId();
+
+		System.out.println("/PurchaseList");
+		
+		if(search.getCurrentPage()==0) {
+			search.setCurrentPage(1);
+		}
+		search.setPageSize(pageSize);
+		
+		Map<String, Object> map = purchaseService.listPurchase(search,sessionId);
+		
+		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
+		System.out.println(resultPage);
+		
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("resultPage", resultPage);
+		model.addAttribute("search", search);
+		
+		return "forward:/purchase/listPurchase.jsp";
+	}
 //	
 //	@RequestMapping(value="updateProduct", method = RequestMethod.POST)
 //	public String updateProduct(@ModelAttribute("product")Product product, Model model) throws Exception{
