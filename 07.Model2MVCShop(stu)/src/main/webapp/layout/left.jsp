@@ -44,7 +44,7 @@ function history(){
 		 <c:if test="${!empty user}">
 		<tr>
 			<td class="Depth03">
-				<a href="/user/getUser.do?userId=${user.userId}" target="rightFrame">개인정보조회</a>
+				<a href="/user/getUser?userId=${user.userId}" target="rightFrame">개인정보조회</a>
 			</td>
 		</tr>
 		</c:if>
@@ -56,7 +56,7 @@ function history(){
 		<c:if test="${user.role == 'admin'}">
 		<tr>
 			<td class="Depth03" >
-				<a href="/user/listUser.do" target="rightFrame">회원정보조회</a>
+				<a href="/user/listUser" target="rightFrame">회원정보조회</a>
 			</td>
 		</tr>
 		<%--
@@ -84,12 +84,12 @@ function history(){
 			</tr>
 			<tr>
 				<td class="Depth03">
-					<a href="/product/listProduct.do?menu=manage"  target="rightFrame">판매상품관리</a>
+					<a href="/product/listProduct?menu=manage"  target="rightFrame">판매상품관리</a>
 				</td>
 			</tr>
 			<tr>
 				<td class="Depth03">
-					<a href="/purchase//listSale.do?"  target="rightFrame">판매이력조회</a>
+					<a href="/purchase/listSale?"  target="rightFrame">판매이력조회</a>
 				</td>
 			</tr>
 			<tr>
@@ -117,7 +117,7 @@ function history(){
 			 <c:if test="${!empty user || user.role == 'user'}">
 			<tr>
 				<td class="Depth03">
-					<a href="/purchase/listPurchase"  target="rightFrame">구매이력조회</a>
+					<a href="/purchase/getPurchaseList"  target="rightFrame">구매이력조회</a>
 				</td>
 			</tr>
 			<%--

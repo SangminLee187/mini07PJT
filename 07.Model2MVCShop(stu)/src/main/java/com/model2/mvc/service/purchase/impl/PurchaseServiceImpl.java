@@ -38,11 +38,11 @@ public class PurchaseServiceImpl implements PurchaseService{
 		return purchaseDao.findPurchase(tranNo);
 	}
 	
-	public Map<String, Object>listPurchase(Search search, String userId)throws Exception{
+	public Map<String, Object>getPurchaseList(Search search, String userId)throws Exception{
 		return purchaseDao.getPurchaseList(search, userId);
 	}	
 	
-	public Map<String, Object>listSale(Search search) throws Exception{
+	public Map<String, Object>getSaleList(Search search) throws Exception{
 		return purchaseDao.getSaleList(search);
 	}
 	public Purchase updatePurchase(Purchase purchaseVO) throws Exception{

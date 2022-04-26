@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.model2.mvc.common.Page;
 import com.model2.mvc.common.Search;
@@ -60,9 +61,9 @@ public class PurchaseController {
 	@RequestMapping(value="addPurchase", method=RequestMethod.POST)
 	public String addPurchase(@ModelAttribute("purchase")Purchase purchase, Model model) throws Exception{
 		System.out.println("/addPurchase : POST");
-		
+
 		purchaseService.addPurchase(purchase);
-				
+
 		return "forward:/purchase/addPurchase.jsp"; 
 	}
 	
@@ -90,8 +91,8 @@ public class PurchaseController {
 		return "forward:/purchase/getPurchase.jsp";	
 	}
 	
-	@RequestMapping("/listPurchase")
-	public String listPurchase(@ModelAttribute("search")Search search, 
+	@RequestMapping("/getPurchaseList")
+	public ModelAndView getPurchaseList(@ModelAttribute("search")Search search, 
 								HttpSession session , Model model) throws Exception{
 		
 		String sessionId=((User)session.getAttribute("user")).getUserId();
@@ -103,16 +104,18 @@ public class PurchaseController {
 		}
 		search.setPageSize(pageSize);
 		
-		Map<String, Object> map = purchaseService.listPurchase(search,sessionId);
+		Map<String, Object> map = purchaseService.getPurchaseList(search,sessionId);
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
 		
-		model.addAttribute("list", map.get("list"));
-		model.addAttribute("resultPage", resultPage);
-		model.addAttribute("search", search);
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("forward:/purchase/listPurchase.jsp");
+		modelAndView.addObject("list", map.get("list"));
+		modelAndView.addObject("resultPage", resultPage);
+		modelAndView.addObject("search", search);
 		
-		return "forward:/purchase/listPurchase.jsp";
+		return modelAndView;
 	}
 //	
 //	@RequestMapping(value="updateProduct", method = RequestMethod.POST)

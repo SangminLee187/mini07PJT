@@ -38,7 +38,7 @@ public class PurchaseDaoImpl implements PurchaseDao{
 	}
 
 	public Map<String,Object> getPurchaseList(Search search, String userId) throws Exception {
-		return null;
+		return sqlSession.selectMap("PurchaseMapper.getPurchaseList", search, userId);
 	}
 
 	public Map<String,Object> getSaleList(Search search) throws Exception {
@@ -54,10 +54,10 @@ public class PurchaseDaoImpl implements PurchaseDao{
 	}
 	
 	public int getTotalCount(Search search) throws Exception {
-		return 0;
+		return sqlSession.selectOne("PurchaseMapper.getTotalCount", search);
 	}
 			
-	public String makeCurrentPageSql(String sql , Search search) {
-		return null;
-	}
+//	public String makeCurrentPageSql(String sql , Search search) {
+//		return null;
+//	}
 }

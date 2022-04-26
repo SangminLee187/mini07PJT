@@ -21,5 +21,5 @@ public interface PurchaseDao {
 	
 	public int getTotalCount(Search search) throws Exception ;
 			
-	public String makeCurrentPageSql(String sql , Search search) ;	//추후 검토
+//	public String makeCurrentPageSql(String sql , Search search) ;	//추후 검토
 }

@@ -111,15 +111,15 @@ function fncGetList(currentPage) {
     --%>
     
     <c:set var="i" value="0"/>
-    <c:forEach var="purc" items="${list}">
+    <c:forEach var="purchase" items="${list}">
     <c:set var="i" value="${i+1}"/>
    	<tr classs="ct_list_pop">
     	<td align="center">
-			<a href="/getProduct.do?prodNo=${purc.purchaseProd.prodNo}"> ${purc.purchaseProd.prodNo}</a>
+			<a href="/product/getProduct?prodNo=${purc.purchaseProd.prodNo}"> ${purc.purchaseProd.prodNo}</a>
     	</td>
 		<td></td>
 		<td align="center">
-			<a href="/getUser.do?userId=${purc.buyer.userId}">${purc.buyer.userId}</a>
+			<a href="/user/getUser?userId=${purc.buyer.userId}">${purc.buyer.userId}</a>
 		</td>
 		<td></td>
 		<td align="center">${purc.receiverName}</td>
@@ -132,7 +132,7 @@ function fncGetList(currentPage) {
 			<c:if test= "${purc.tranCode == '111'}"> 구매완료
 			</c:if>	
 			<c:if test= "${purc.tranCode == '222'}"> 배송중
-				<a href="/updateTranCode.do?prodNo=${purc.purchaseProd.prodNo}&tranCode=333&menu=search">물품수령</a>
+				<a href="/purchase/updateTranCode?prodNo=${purc.purchaseProd.prodNo}&tranCode=333&menu=search">물품수령</a>
 			</c:if>
 			<c:if test= "${purc.tranCode == '333'}"> 배송완료 
 			</c:if>		
@@ -154,6 +154,7 @@ function fncGetList(currentPage) {
       <td align="center">
        
 		<input type="hidden" id="currentPage" name="currentPage" value=""/>
+		
 			<%--
 			<% if( resultPage.getCurrentPage() <= resultPage.getPageUnit() ){ %>
 					◀ 이전
